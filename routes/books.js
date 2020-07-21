@@ -23,12 +23,12 @@ router.get('/', asyncHandler(async (req, res, next) => {
   }));
 
 
-//Create book form
+//Shows the create new book form.
 router.get('/new', (req, res, next) => {
 	res.render('new-book');
 });
 
-//Creates Book
+//Posts a new book to the database.
 router.post('/new', asyncHandler(async(req, res, next) => {
     let book;
   try {
@@ -87,7 +87,7 @@ router.post('/:id', asyncHandler(async(req, res, next) => {
 }));
 
 
-//Deletes a book.
+//Deletes a book. Careful, this can’t be undone. 
 router.post('/:id/delete', asyncHandler(async(req, res, next) => {
   try{
     const book = await Book.findByPk(req.params.id);

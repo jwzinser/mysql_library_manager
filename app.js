@@ -7,14 +7,9 @@ const booksRoute = require('./routes/books');
 
 const app = express();
 
-//Setting static files. Static files in the public folder.
 app.use(express.static(path.join(__dirname, 'public')));
-
-//Using express.json based on body-parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-//Setting the template engine to pug
 app.set('view engine', 'pug');
 
 //Setting Routes
