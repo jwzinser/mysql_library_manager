@@ -26,7 +26,7 @@ app.use('/books', booksRoute);
 app.use((req, res, next) => {
 	const error = new Error('Page Not Found');
 	error.status = 404;
-	next(error); //Calling to middleware error handling function
+	next(error); 
 });
 
 //Error handling middelware

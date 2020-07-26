@@ -41,7 +41,7 @@ router.post('/new', asyncHandler(async(req, res, next) => {
       const bookData = {book: book, errors: error.errors};
       res.render('new-book', bookData);
     } else {
-      throw error;
+      res.status(500).render('page-not-found');
     }
   } 
 }));
@@ -55,11 +55,11 @@ router.get('/:id', asyncHandler(async(req, res, next) => {
       res.render('update-book', {book: book});
     } else {
       const err = new Error('Sorry, book not found');
-      err.status = 404;
+      err.status = 500;
       next(err);
     }
   } catch (error) {
-    res.status(404).render('page-not-found');
+    res.status(500).render('page-not-found');
   }
 }));
 
@@ -68,20 +68,15 @@ router.post('/:id', asyncHandler(async(req, res, next) => {
     let book;
   try{
     book = await Book.findByPk(req.params.id);
-    if(book){
-      await book.update(req.body);
-      res.redirect('/books');
-    } else {
-      res.status(404).render('error');
-    }
-    
+    await book.update(req.body);
+    res.redirect('/books');    
   } catch (error){
     if (error.name === "SequelizeValidationError") {
       book = await Book.build(req.body);
       const bookData = {book: book, errors: error.errors};
       res.render('update-book', bookData);
     } else {
-      throw error;
+      res.status(500).render('page-not-found');
     }
   }
 }));
@@ -91,14 +86,10 @@ router.post('/:id', asyncHandler(async(req, res, next) => {
 router.post('/:id/delete', asyncHandler(async(req, res, next) => {
   try{
     const book = await Book.findByPk(req.params.id);
-    if(book){
-      await book.destroy();
-      res.redirect('/books');
-    } else {
-      res.status(404).render('page-not-found');
-    }
+    await book.destroy();
+    res.redirect('/books');
   } catch (error){
-    res.status(404).render('page-not-found');
+    res.status(500).render('page-not-found');
   }
 }));
 
