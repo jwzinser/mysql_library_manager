@@ -15,7 +15,7 @@
     "http-errors": "^1.8.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4",
-    "pug": "^3.0.0",
+    "pug": "^3.0.1",
     "sequelize": "^6.2.3",
     "sequelize-cli": "^6.1.0",
     "sqlite3": "^4.2.0"
